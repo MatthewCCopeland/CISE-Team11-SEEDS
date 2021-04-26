@@ -12,6 +12,7 @@ app.use(express.json());
 
 //Redirect any incoming traffic on api/auth to the authentication router
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/private", require("./routes/private"));
 
 // Error Handler Middleware
 app.use(errorHandler);
