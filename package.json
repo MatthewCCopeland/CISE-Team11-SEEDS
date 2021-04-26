@@ -4,8 +4,8 @@
   "description": "SEEDS CISE Project Team 11",
   "main": "app.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1",
-    "app": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "app": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
