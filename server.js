@@ -1,29 +1,31 @@
-// server.js
-require('dotenv').config({path: "./config.env"});
-const express = require('express');
+require("dotenv").config({ path: "./config.env" });
+const express = require("express");
 const app = express();
-const connectDB = require('./config/db');
+const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 
-// Connect DB
 connectDB();
 
 app.use(express.json());
 
-//Redirect any incoming traffic on api/auth to the authentication router
+app.get("/", (req, res, next) => {
+  res.send("Api running");
+});
+
+// Connecting Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
 
 // Error Handler Middleware
 app.use(errorHandler);
 
-const port = process.env.PORT || 8082;
+const PORT = process.env.PORT || 5000;
 
-const server = app.listen(port, () => 
-    console.log(`Server running on port ${port}`)
+const server = app.listen(PORT, () =>
+  console.log(`Sever running on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {
-    console.log(`Logged Error: ${err.message}`);
-    server.close(() => process.exit(1));
-  });
+  console.log(`Logged Error: ${err.message}`);
+  server.close(() => process.exit(1));
+});
