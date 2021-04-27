@@ -1,4 +1,5 @@
 require("dotenv").config({ path: "./config.env" });
+const path = require("path");
 const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
@@ -8,16 +9,24 @@ connectDB();
 
 app.use(express.json());
 
-app.get("/", (req, res, next) => {
-  res.send("Api running");
-});
-
 // Connecting Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
 
 // Error Handler Middleware
 app.use(errorHandler);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, '/client/build')));
+
+  app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  })
+} else {
+  app.get("/", (req, res, next) => {
+    res.send("Api running");
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
