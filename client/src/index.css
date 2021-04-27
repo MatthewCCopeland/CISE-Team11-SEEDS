@@ -7,8 +7,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.7;
-  background: #eee;
-  color: #333;
+  background: #333333;
+  color: #d4d4d4;
 }
 
 .form-group,
@@ -26,13 +26,13 @@ body {
   padding: 10px 20px;
   border: none;
   border-bottom: 3px solid transparent;
-  background-color: #eee;
+  background-color: #333333;
   outline-width: 0;
   font-size: 1rem;
 }
 
 .form-group input:focus {
-  border-bottom: 3px solid coral;
+  border-bottom: 3px solid rgb(0, 0, 0);
 }
 
 .btn {
@@ -48,8 +48,8 @@ body {
 }
 
 .btn-primary {
-  background-color: coral;
-  color: #fff;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
 }
 
 .error-message {
@@ -57,7 +57,7 @@ body {
   display: inline-block;
   padding: 5px;
   background: red;
-  color: #fff;
+  color: #d4d4d4;
   text-align: center;
   margin: 0.5rem 0;
 }
@@ -67,7 +67,7 @@ body {
   display: inline-block;
   padding: 5px;
   background: green;
-  color: #fff;
+  color: #d4d4d4;
   text-align: center;
   margin: 0.5rem 0;
 }
