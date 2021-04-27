@@ -95,14 +95,43 @@ exports.forgotPassword = async (req, res, next) => {
 
       return next(new ErrorResponse("Email could not be sent", 500));
     }
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
 // @desc    Reset User Password
 exports.resetPassword = async (req, res, next) => {
-  res.send("Reset Password Route");
+  // Compare token in URL params to hashed token
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(new ErrorResponse("Invalid Token", 400));
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    res.status(201).json({
+      success: true,
+      data: "Password Updated Success",
+      token: user.getSignedJwtToken(),
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const sendToken = (user, statusCode, res) => {
