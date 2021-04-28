@@ -1,4 +1,4 @@
-exports.getPrivateRoute = (req, res, next) => {
+exports.getPrivateRoute = (req, res) => {
     res
       .status(200)
       .json({
